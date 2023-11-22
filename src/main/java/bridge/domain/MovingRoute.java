@@ -2,6 +2,7 @@ package bridge.domain;
 
 import bridge.constant.MoveDirection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MovingRoute {
@@ -11,6 +12,18 @@ public class MovingRoute {
     public MovingRoute(Bridge bridge) {
         this.bridge = bridge;
         route = new ArrayList<>();
+    }
+
+    public String getRouteByIndex(int index) {
+        return route.get(index);
+    }
+
+    public String getBridgePositionByIndex(int index) {
+        return bridge.getWay(index);
+    }
+
+    public int getCurrentPosition() {
+        return route.size();
     }
 
     public void recordSuccessMove(MoveDirection moveDirection) {
