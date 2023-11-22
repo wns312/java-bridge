@@ -45,10 +45,10 @@ public class BridgeGame {
         return userBridge.size() == bridge.size() && !isGameFailed();
     }
 
-    public boolean isGameEnd() { return isGameSucceeded() || isGameFailed(); }
+    public boolean isGameEnded() { return isGameSucceeded() || isGameFailed(); }
 
     private void validateIsGameEnd() {
-        if (isGameEnd()) {
+        if (isGameEnded()) {
             throw IllegalStateExceptionType.INVALID_MOVING.getException();
         }
     }

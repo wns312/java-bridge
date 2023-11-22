@@ -25,7 +25,7 @@ public class BridgeGameController {
         outputView.printIntroMessage();
         BridgeSize bridgeSize = readBridgeSize();
         BridgeGame bridgeGame = createBridgeGame(bridgeSize);
-        repeatedPlay(bridgeGame);
+        playRepeatedly(bridgeGame);
         printGameResult(bridgeGame);
     }
 
@@ -39,36 +39,19 @@ public class BridgeGameController {
         return new BridgeGame(bridge);
     }
 
-    private void repeatedPlay(BridgeGame bridgeGame) {
-        while (!bridgeGame.isGameEnd()) {
+    private void playRepeatedly(BridgeGame bridgeGame) {
+        RetryCommand retryCommand = RetryCommand.RETRY;
+        while (retryCommand.isRetry()) {
             play(bridgeGame);
             if (bridgeGame.isGameSucceeded()) {
                 break;
             }
-            confirmRetry(bridgeGame);
+            retryCommand = confirmRetry(bridgeGame);
         }
     }
-
-    private void confirmRetry(BridgeGame bridgeGame) {
-        RetryCommand retryCommand = readRetryCommand();
-
-        if (retryCommand.isRetry()) {
-            bridgeGame.retry();
-        }
-    }
-
-    private RetryCommand readRetryCommand() {
-        return repeatBeforeSuccess(() -> RetryCommand.getCommandByExpression(inputView.readGameCommand()));
-    }
-
-    private void printGameResult(BridgeGame bridgeGame) {
-        outputView.printResultMessage();
-        outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
-        outputView.printResult(bridgeGame.isGameSucceeded(), bridgeGame.getTryCount());
-    }
-
+    
     private void play(BridgeGame bridgeGame) {
-        while (!bridgeGame.isGameEnd()) {
+        while (!bridgeGame.isGameEnded()) {
             move(bridgeGame);
             outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
         }
@@ -81,6 +64,26 @@ public class BridgeGameController {
             BridgeMove bridgeMove = BridgeMove.getByExpression(moveExpression);
             return bridgeGame.move(bridgeMove);
         });
+    }
+
+    private RetryCommand confirmRetry(BridgeGame bridgeGame) {
+        RetryCommand retryCommand = readRetryCommand();
+
+        if (retryCommand.isRetry()) {
+            bridgeGame.retry();
+        }
+
+        return retryCommand;
+    }
+
+    private RetryCommand readRetryCommand() {
+        return repeatBeforeSuccess(() -> RetryCommand.getCommandByExpression(inputView.readGameCommand()));
+    }
+
+    private void printGameResult(BridgeGame bridgeGame) {
+        outputView.printResultMessage();
+        outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
+        outputView.printResult(bridgeGame.isGameSucceeded(), bridgeGame.getTryCount());
     }
 
     private <R> R repeatBeforeSuccess(Supplier<R> supplier) {
