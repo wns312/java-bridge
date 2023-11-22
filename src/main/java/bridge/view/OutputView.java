@@ -11,6 +11,8 @@ public class OutputView {
     private final String GAME_FAIL_MESSAGE = "게임 성공 여부: 실패";
     private final String GAME_SUCCESS_MESSAGE = "게임 성공 여부: 성공";
     private final String TRY_ANNOUNCE_MESSAGE = "총 시도한 횟수: %s";
+    private final String START_BRACKET = "[";
+    private final String END_BRACKET = "]";
 
 
     public void printGameStartMessage() {
@@ -20,8 +22,8 @@ public class OutputView {
     public void printMap(MovingRoute movingRoute) {
         List<String> upperSpace = getUpperSpace(movingRoute);
         List<String> lowerSpace = getLowerSpace(movingRoute);
-        System.out.println("[" + String.join(DELIMITER, upperSpace) + "]");
-        System.out.println("[" + String.join(DELIMITER, lowerSpace) + "]");
+        System.out.println(START_BRACKET + String.join(DELIMITER, upperSpace) + END_BRACKET);
+        System.out.println(START_BRACKET + String.join(DELIMITER, lowerSpace) + END_BRACKET);
     }
 
 
@@ -29,8 +31,8 @@ public class OutputView {
         System.out.println(GAME_RESULT_INTRO_MESSAGE);
         List<String> upperSpace = getUpperSpace(movingRoute);
         List<String> lowerSpace = getLowerSpace(movingRoute);
-        System.out.println("[" + String.join(DELIMITER, upperSpace) + "]");
-        System.out.println("[" + String.join(DELIMITER, lowerSpace) + "]");
+        System.out.println(START_BRACKET + String.join(DELIMITER, upperSpace) + END_BRACKET);
+        System.out.println(START_BRACKET + String.join(DELIMITER, lowerSpace) + END_BRACKET);
         if (isSuccess) {
             System.out.println(GAME_SUCCESS_MESSAGE);
             System.out.println(String.format(TRY_ANNOUNCE_MESSAGE, tryCount));

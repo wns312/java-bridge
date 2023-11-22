@@ -1,6 +1,7 @@
 package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
+import bridge.constant.ExitCommand;
 import bridge.constant.MoveDirection;
 import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
@@ -21,12 +22,15 @@ public class BridgeController {
         outputView.printGameStartMessage();
         Bridge bridge = getBridge();
         BridgeGame bridgeGame = new BridgeGame(bridge);
+        processGame(bridgeGame);
+    }
 
+    private void processGame(BridgeGame bridgeGame) {
         while (!bridgeGame.isSuccess()) {
             int position = crossBridge(bridgeGame);
             if (position == -1) {
                 String command = getCommand();
-                if (command.equals("Q")) {
+                if (command.equals(ExitCommand.QUIT.getCommand())) {
                     outputView.printResult(bridgeGame.getMovingRoute(), bridgeGame.getTryCount(), bridgeGame.isSuccess());
                     return;
                 }
