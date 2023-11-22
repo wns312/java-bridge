@@ -3,6 +3,7 @@ package bridge.controller;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeSize;
+import bridge.domain.RetryCommand;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 import java.util.List;
@@ -23,8 +24,30 @@ public class BridgeGameController {
         outputView.printIntroMessage();
         BridgeSize bridgeSize = readBridgeSize();
         BridgeGame bridgeGame = createBridgeGame(bridgeSize);
-        play(bridgeGame);
+        repeatedPlay(bridgeGame);
     }
+
+    private void repeatedPlay(BridgeGame bridgeGame) {
+        while (!bridgeGame.isGameEnd()) {
+            play(bridgeGame);
+            if (bridgeGame.isGameSucceeded()) {
+                break;
+            }
+            confirmRetry(bridgeGame);
+        }
+    }
+
+    private void confirmRetry(BridgeGame bridgeGame) {
+        RetryCommand retryCommand = readRetryCommand();
+        if (retryCommand.isRetry()) {
+            bridgeGame.retry();
+        }
+    }
+
+    private RetryCommand readRetryCommand() {
+        return repeatBeforeSuccess(() -> new RetryCommand(inputView.readGameCommand()));
+    }
+
 
     private void play(BridgeGame bridgeGame) {
         while (!bridgeGame.isGameEnd()) {
