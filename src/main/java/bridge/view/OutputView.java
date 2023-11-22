@@ -3,46 +3,42 @@ package bridge.view;
 import bridge.domain.MovingRoute;
 import java.util.ArrayList;
 import java.util.List;
-import org.mockito.internal.util.StringUtil;
 
-/**
- * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
- */
 public class OutputView {
+    private final String STARTING_MESSAGE = "다리 건너기 게임을 시작합니다.\n";
+    private final String GAME_RESULT_INTRO_MESSAGE = "최종 게임 결과";
+    private final String DELIMITER = "|";
+    private final String GAME_FAIL_MESSAGE = "게임 성공 여부: 실패";
+    private final String GAME_SUCCESS_MESSAGE = "게임 성공 여부: 성공";
+    private final String TRY_ANNOUNCE_MESSAGE = "총 시도한 횟수: %s";
+
 
     public void printGameStartMessage() {
-        System.out.println("다리 건너기 게임을 시작합니다.\n");
+        System.out.println(STARTING_MESSAGE);
     }
-    /**
-     * 현재까지 이동한 다리의 상태를 정해진 형식에 맞춰 출력한다.
-     * <p>
-     * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-     */
+
     public void printMap(MovingRoute movingRoute) {
         List<String> upperSpace = getUpperSpace(movingRoute);
         List<String> lowerSpace = getLowerSpace(movingRoute);
-        System.out.println("[" + String.join("|", upperSpace) + "]");
-        System.out.println("[" + String.join("|", lowerSpace) + "]");
+        System.out.println("[" + String.join(DELIMITER, upperSpace) + "]");
+        System.out.println("[" + String.join(DELIMITER, lowerSpace) + "]");
     }
 
-    /**
-     * 게임의 최종 결과를 정해진 형식에 맞춰 출력한다.
-     * <p>
-     * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-     */
+
     public void printResult(MovingRoute movingRoute, int tryCount, boolean isSuccess) {
-        System.out.println("최종 게임 결과");
+        System.out.println(GAME_RESULT_INTRO_MESSAGE);
         List<String> upperSpace = getUpperSpace(movingRoute);
         List<String> lowerSpace = getLowerSpace(movingRoute);
-        System.out.println("[" + String.join("|", upperSpace) + "]");
-        System.out.println("[" + String.join("|", lowerSpace) + "]");
+        System.out.println("[" + String.join(DELIMITER, upperSpace) + "]");
+        System.out.println("[" + String.join(DELIMITER, lowerSpace) + "]");
         if (isSuccess) {
-            System.out.println("게임 성공 여부: 성공");
-            System.out.println("총 시도한 횟수: " + tryCount);
-        } else {
-            System.out.println("게임 성공 여부: 성공");
-            System.out.println("총 시도한 횟수: " + tryCount);
+            System.out.println(GAME_SUCCESS_MESSAGE);
+            System.out.println(String.format(TRY_ANNOUNCE_MESSAGE, tryCount));
+            return;
         }
+
+        System.out.println(GAME_FAIL_MESSAGE);
+        System.out.println(String.format(TRY_ANNOUNCE_MESSAGE, tryCount));
     }
 
     public void printErrorMessage(String message) {
