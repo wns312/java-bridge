@@ -26,11 +26,11 @@
     - [x] 예외시 재입력
 
 ## 2. 실제 다리 생성
-- [ ] BridgeMaker 클래스의 makeBridge 메소드 사용
-  - [ ] 메소드 활용해야 하고, 시그니처와 반환타입 변경 X
-  - [ ] 이에 따라 U, D로 이루어진 String 리스트를 만든다.
-  - [ ] BridgeRandomNumberGenerator 클래스의 generate 활용
-  - [ ] 입력받은 size와 같은 길이의 다리 생성
+- [x] BridgeMaker 클래스의 makeBridge 메소드 사용
+  - [x] 메소드 활용해야 하고, 시그니처와 반환타입 변경 X
+  - [x] 이에 따라 U, D로 이루어진 String 리스트를 만든다.
+  - [x] BridgeRandomNumberGenerator 클래스의 generate 활용
+  - [x] 입력받은 size와 같은 길이의 다리 생성
 
 ## 3. BridgeGame 생성
 - [ ] 재시도와 움직임이 가능한 BridgeGame 클래스 작성
