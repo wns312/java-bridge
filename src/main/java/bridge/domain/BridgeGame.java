@@ -43,4 +43,11 @@ public class BridgeGame {
         movingRoute = new MovingRoute(bridge);
         tryCount++;
     }
+
+    public boolean isSuccess() {
+        if (position == bridge.getBridgeSize()) {
+            return true;
+        }
+        return false;
+    }
 }
