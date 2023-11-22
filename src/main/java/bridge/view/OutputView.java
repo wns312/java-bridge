@@ -22,6 +22,7 @@ public class OutputView {
     public void printMap(List<String> bridge, List<String> userBridge) {
         System.out.println(bridgeExpressionMaker.createBridgeExpression(bridge, userBridge));
     }
+
     public void printResultMessage() {
         System.out.println(GAME_RESULT_MESSAGE);
     }

@@ -14,12 +14,17 @@ public class BridgeExpressionMaker {
     private static final String BRIDGE_EMPTY_EXPRESSION = " ";
     private static final String LINE_SEPARATOR = "\n";
 
-    private String createBridgeCorrectiveExpression(String bridgeExpression, String userBridgeExpression) {
-        if (bridgeExpression.equals(userBridgeExpression)) {
-            return BRIDGE_CORRECT_EXPRESSION;
+    public String createBridgeExpression(List<String> bridge, List<String> userBridge) {
+        List<String> upperBridgeExpressions = new ArrayList<>();
+        List<String> lowerBridgeExpressions = new ArrayList<>();
+        for (int i = 0; i < userBridge.size(); i++) {
+            String bridgeExpression = bridge.get(i);
+            String userBridgeExpression = userBridge.get(i);
+            upperBridgeExpressions.add(createUpperBridgeExpression(bridgeExpression, userBridgeExpression));
+            lowerBridgeExpressions.add(createLowerBridgeExpression(bridgeExpression, userBridgeExpression));
         }
 
-        return BRIDGE_INCORRECT_EXPRESSION;
+        return createWholeBridgeExpression(upperBridgeExpressions, lowerBridgeExpressions);
     }
 
     private String createUpperBridgeExpression(String bridgeExpression, String userBridgeExpression) {
@@ -38,10 +43,12 @@ public class BridgeExpressionMaker {
         return createBridgeCorrectiveExpression(bridgeExpression, userBridgeExpression);
     }
 
-    private String createSingleBridgeExpression(List<String> bridgeExpressions) {
-        return BRIDGE_START_EXPRESSION
-                + String.join(BRIDGE_DELIMITER, bridgeExpressions)
-                + BRIDGE_END_EXPRESSION;
+    private String createBridgeCorrectiveExpression(String bridgeExpression, String userBridgeExpression) {
+        if (bridgeExpression.equals(userBridgeExpression)) {
+            return BRIDGE_CORRECT_EXPRESSION;
+        }
+
+        return BRIDGE_INCORRECT_EXPRESSION;
     }
 
     private String createWholeBridgeExpression(List<String> upperBridgeExpressions, List<String> lowerBridgeExpressions) {
@@ -50,16 +57,9 @@ public class BridgeExpressionMaker {
                 + createSingleBridgeExpression(lowerBridgeExpressions);
     }
 
-    public String createBridgeExpression(List<String> bridge, List<String> userBridge) {
-        List<String> upperBridgeExpressions = new ArrayList<>();
-        List<String> lowerBridgeExpressions = new ArrayList<>();
-        for (int i = 0; i < userBridge.size(); i++) {
-            String bridgeExpression = bridge.get(i);
-            String userBridgeExpression = userBridge.get(i);
-            upperBridgeExpressions.add(createUpperBridgeExpression(bridgeExpression, userBridgeExpression));
-            lowerBridgeExpressions.add(createLowerBridgeExpression(bridgeExpression, userBridgeExpression));
-        }
-
-        return createWholeBridgeExpression(upperBridgeExpressions, lowerBridgeExpressions);
+    private String createSingleBridgeExpression(List<String> bridgeExpressions) {
+        return BRIDGE_START_EXPRESSION
+                + String.join(BRIDGE_DELIMITER, bridgeExpressions)
+                + BRIDGE_END_EXPRESSION;
     }
 }

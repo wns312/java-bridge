@@ -5,6 +5,7 @@ import bridge.domain.exception.IllegalArgumentExceptionType;
 public class RetryCommand {
     private static final String RETRY_COMMAND = "R";
     private static final String END_COMMAND = "Q";
+
     private final String command;
 
     public RetryCommand(String command) {

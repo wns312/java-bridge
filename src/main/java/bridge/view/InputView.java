@@ -8,6 +8,16 @@ public class InputView {
     private static final String MOVING_DIRECTION_INPUT_MESSAGE = "이동할 칸을 선택해주세요. (위: U, 아래: D)";
     private static final String RETRY_COMMAND_INPUT_MESSAGE = "게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)";
 
+    public String readMoving() {
+        System.out.println(MOVING_DIRECTION_INPUT_MESSAGE);
+        return Console.readLine();
+    }
+
+    public String readGameCommand() {
+        System.out.println(RETRY_COMMAND_INPUT_MESSAGE);
+        return Console.readLine();
+    }
+
     private int parseBridgeSize(String input) {
         try {
             return Integer.parseInt(input);
@@ -21,15 +31,5 @@ public class InputView {
         String input = Console.readLine();
 
         return parseBridgeSize(input);
-    }
-
-    public String readMoving() {
-        System.out.println(MOVING_DIRECTION_INPUT_MESSAGE);
-        return Console.readLine();
-    }
-
-    public String readGameCommand() {
-        System.out.println(RETRY_COMMAND_INPUT_MESSAGE);
-        return Console.readLine();
     }
 }

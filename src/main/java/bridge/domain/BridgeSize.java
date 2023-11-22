@@ -28,6 +28,4 @@ public class BridgeSize {
             throw IllegalArgumentExceptionType.INVALID_BRIDGE_LENGTH.getException();
         }
     }
-
-
 }

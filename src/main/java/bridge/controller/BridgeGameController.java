@@ -28,10 +28,14 @@ public class BridgeGameController {
         printGameResult(bridgeGame);
     }
 
-    private void printGameResult(BridgeGame bridgeGame) {
-        outputView.printResultMessage();
-        outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
-        outputView.printResult(bridgeGame.isGameSucceeded(), bridgeGame.getTryCount());
+    private BridgeSize readBridgeSize() {
+        return repeatBeforeSuccess(() -> new BridgeSize(inputView.readBridgeSize()));
+    }
+
+    private BridgeGame createBridgeGame(BridgeSize bridgeSize) {
+        List<String> bridge = bridgeMaker.makeBridge(bridgeSize.getSize());
+
+        return new BridgeGame(bridge);
     }
 
     private void repeatedPlay(BridgeGame bridgeGame) {
@@ -55,6 +59,11 @@ public class BridgeGameController {
         return repeatBeforeSuccess(() -> new RetryCommand(inputView.readGameCommand()));
     }
 
+    private void printGameResult(BridgeGame bridgeGame) {
+        outputView.printResultMessage();
+        outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
+        outputView.printResult(bridgeGame.isGameSucceeded(), bridgeGame.getTryCount());
+    }
 
     private void play(BridgeGame bridgeGame) {
         while (!bridgeGame.isGameEnd()) {
@@ -69,16 +78,6 @@ public class BridgeGameController {
             String moveExpression = inputView.readMoving();
             return bridgeGame.move(moveExpression);
         });
-    }
-
-    private BridgeGame createBridgeGame(BridgeSize bridgeSize) {
-        List<String> bridge = bridgeMaker.makeBridge(bridgeSize.getSize());
-        return new BridgeGame(bridge);
-
-    }
-
-    private BridgeSize readBridgeSize() {
-        return repeatBeforeSuccess(() -> new BridgeSize(inputView.readBridgeSize()));
     }
 
     private <R> R repeatBeforeSuccess(Supplier<R> supplier) {
