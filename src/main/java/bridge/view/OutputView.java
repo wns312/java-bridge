@@ -13,7 +13,7 @@ public class OutputView {
     );
     private static final String TRY_COUNT_EXPRESSION = "%n총 시도한 횟수: %d";
 
-    BridgeExpressionMaker bridgeExpressionMaker;
+    private final BridgeExpressionMaker bridgeExpressionMaker;
 
     public OutputView(BridgeExpressionMaker bridgeExpressionMaker) {
         this.bridgeExpressionMaker = bridgeExpressionMaker;
