@@ -13,6 +13,10 @@ public class BridgeSize {
         this.size = size;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     private void validateMinRange(int size) {
         if (size < MIN_BRIDGE_SIZE) {
             throw IllegalArgumentExceptionType.INVALID_BRIDGE_LENGTH.getException();
