@@ -25,6 +25,13 @@ public class BridgeGameController {
         BridgeSize bridgeSize = readBridgeSize();
         BridgeGame bridgeGame = createBridgeGame(bridgeSize);
         repeatedPlay(bridgeGame);
+        printGameResult(bridgeGame);
+    }
+
+    private void printGameResult(BridgeGame bridgeGame) {
+        outputView.printResultMessage();
+        outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
+        outputView.printResult(bridgeGame.isGameSucceeded(), bridgeGame.getTryCount());
     }
 
     private void repeatedPlay(BridgeGame bridgeGame) {

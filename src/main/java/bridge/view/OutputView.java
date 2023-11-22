@@ -3,9 +3,6 @@ package bridge.view;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
- */
 public class OutputView {
     private static final String BRIDGE_SIZE_INPUT_INTRO_MESSAGE = "다리 건너기 게임을 시작합니다.\n";
     private static final String GAME_RESULT_MESSAGE = "\n최종 게임 결과";
@@ -25,13 +22,13 @@ public class OutputView {
     public void printMap(List<String> bridge, List<String> userBridge) {
         System.out.println(bridgeExpressionMaker.createBridgeExpression(bridge, userBridge));
     }
+    public void printResultMessage() {
+        System.out.println(GAME_RESULT_MESSAGE);
+    }
 
-    /**
-     * 게임의 최종 결과를 정해진 형식에 맞춰 출력한다.
-     * <p>
-     * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-     */
-    public void printResult() {
+    public void printResult(boolean isGameSucceeded, int retryCount) {
+        System.out.printf(GAME_RESULT_EXPRESSION, RESULT_EXPRESSION_MATCHER.get(isGameSucceeded));
+        System.out.printf(TRY_COUNT_EXPRESSION, retryCount);
     }
 
     public void printIntroMessage() {
