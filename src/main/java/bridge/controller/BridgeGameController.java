@@ -23,6 +23,22 @@ public class BridgeGameController {
         outputView.printIntroMessage();
         BridgeSize bridgeSize = readBridgeSize();
         BridgeGame bridgeGame = createBridgeGame(bridgeSize);
+        play(bridgeGame);
+    }
+
+    private void play(BridgeGame bridgeGame) {
+        while (!bridgeGame.isGameEnd()) {
+            move(bridgeGame);
+            outputView.printMap(bridgeGame.getBridge(), bridgeGame.getUserBridge());
+        }
+
+    }
+
+    private void move(BridgeGame bridgeGame) {
+        repeatBeforeSuccess(() -> {
+            String moveExpression = inputView.readMoving();
+            return bridgeGame.move(moveExpression);
+        });
     }
 
     private BridgeGame createBridgeGame(BridgeSize bridgeSize) {
