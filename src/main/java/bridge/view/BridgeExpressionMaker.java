@@ -12,6 +12,7 @@ public class BridgeExpressionMaker {
     private static final String BRIDGE_CORRECT_EXPRESSION = "O";
     private static final String BRIDGE_INCORRECT_EXPRESSION = "X";
     private static final String BRIDGE_EMPTY_EXPRESSION = " ";
+    private static final String LINE_SEPARATOR = "\n";
 
     private String createBridgeCorrectiveExpression(String bridgeExpression, String userBridgeExpression) {
         if (bridgeExpression.equals(userBridgeExpression)) {
@@ -37,14 +38,16 @@ public class BridgeExpressionMaker {
         return createBridgeCorrectiveExpression(bridgeExpression, userBridgeExpression);
     }
 
-    private String createSingleBridge(List<String> bridgeExpressions) {
+    private String createSingleBridgeExpression(List<String> bridgeExpressions) {
         return BRIDGE_START_EXPRESSION
                 + String.join(BRIDGE_DELIMITER, bridgeExpressions)
                 + BRIDGE_END_EXPRESSION;
     }
 
     private String createWholeBridgeExpression(List<String> upperBridgeExpressions, List<String> lowerBridgeExpressions) {
-        return createSingleBridge(upperBridgeExpressions) + "\n" + createSingleBridge(lowerBridgeExpressions);
+        return createSingleBridgeExpression(upperBridgeExpressions)
+                + LINE_SEPARATOR
+                + createSingleBridgeExpression(lowerBridgeExpressions);
     }
 
     public String createBridgeExpression(List<String> bridge, List<String> userBridge) {
