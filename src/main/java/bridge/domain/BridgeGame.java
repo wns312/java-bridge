@@ -27,13 +27,12 @@ public class BridgeGame {
         return tryCount;
     }
 
-    public boolean isGameSucceeded() {
-        return userBridge.size() == bridge.size() && !isGameFailed();
-    }
-
+    private boolean isMoveSucceeded() { return !isGameFailed(); }
 
     public boolean isGameFailed() {
-        if (userBridge.isEmpty()) return false;
+        if (userBridge.isEmpty()) {
+            return false;
+        }
 
         int lastUserBridgeIdx = userBridge.size() - 1;
         String lastUserMove = userBridge.get(lastUserBridgeIdx);
@@ -41,9 +40,11 @@ public class BridgeGame {
         return !lastUserMove.equals(bridge.get(lastUserBridgeIdx));
     }
 
-    public boolean isGameEnd() { return isGameSucceeded() || isGameFailed(); }
+    public boolean isGameSucceeded() {
+        return userBridge.size() == bridge.size() && !isGameFailed();
+    }
 
-    private boolean isMoveSucceeded() { return !isGameFailed(); }
+    public boolean isGameEnd() { return isGameSucceeded() || isGameFailed(); }
 
     public boolean move(String moveExpression) {
         BridgeGameValidator.validateMoveExpression(moveExpression);
