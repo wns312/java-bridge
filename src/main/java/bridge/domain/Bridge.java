@@ -11,6 +11,10 @@ public class Bridge {
         this.spaces = spaces;
     }
 
+    public String getWay(int index) {
+        return spaces.get(index);
+    }
+
     private void validateBridgeLength(List<String> spaces) {
         if (spaces.size() < 3 || spaces.size() > 20) {
             throw ErrorCode.INVALID_BRIDGE_LENGTH.getException();
