@@ -1,16 +1,12 @@
 package bridge.domain;
 
 import bridge.BridgeNumberGenerator;
+import bridge.domain.constant.BridgeMove;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class BridgeMaker {
-    private static final Map<Integer, String> BRIDGE_MAP = Map.of(
-            0, "D",
-            1, "U"
-    );
-
     private final BridgeNumberGenerator bridgeNumberGenerator;
 
     public BridgeMaker(BridgeNumberGenerator bridgeNumberGenerator) {
@@ -21,8 +17,8 @@ public class BridgeMaker {
         List<String> bridge = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             int generatedNumber = bridgeNumberGenerator.generate();
-            bridge.add(BRIDGE_MAP.get(generatedNumber));
-
+            BridgeMove bridgeMove = BridgeMove.getByNumber(generatedNumber);
+            bridge.add(bridgeMove.getExpression());
         }
 
         return bridge;

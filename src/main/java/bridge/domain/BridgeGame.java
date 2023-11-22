@@ -1,6 +1,7 @@
 package bridge.domain;
 
-import bridge.domain.validator.BridgeGameValidator;
+import bridge.domain.constant.BridgeMove;
+import bridge.domain.exception.IllegalStateExceptionType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +47,15 @@ public class BridgeGame {
 
     public boolean isGameEnd() { return isGameSucceeded() || isGameFailed(); }
 
-    public boolean move(String moveExpression) {
-        BridgeGameValidator.validateMoveExpression(moveExpression);
-        BridgeGameValidator.validateIsGameEnd(isGameEnd());
-        userBridge.add(moveExpression);
+    private void validateIsGameEnd() {
+        if (isGameEnd()) {
+            throw IllegalStateExceptionType.INVALID_MOVING.getException();
+        }
+    }
+
+    public boolean move(BridgeMove bridgeMove) {
+        validateIsGameEnd();
+        userBridge.add(bridgeMove.getExpression());
 
         return isMoveSucceeded();
     }
