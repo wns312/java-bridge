@@ -13,7 +13,7 @@ public class Bridge {
 
     private void validateBridgeLength(List<String> spaces) {
         if (spaces.size() < 3 || spaces.size() > 20) {
-            ErrorCode.INVALID_BRIDGE_LENGTH.getException();
+            throw ErrorCode.INVALID_BRIDGE_LENGTH.getException();
         }
     }
 }
