@@ -1,5 +1,6 @@
 package bridge.controller;
 
+import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeSize;
 import bridge.view.InputView;
@@ -21,8 +22,13 @@ public class BridgeGameController {
     public void run() {
         outputView.printIntroMessage();
         BridgeSize bridgeSize = readBridgeSize();
+        BridgeGame bridgeGame = createBridgeGame(bridgeSize);
+    }
+
+    private BridgeGame createBridgeGame(BridgeSize bridgeSize) {
         List<String> bridge = bridgeMaker.makeBridge(bridgeSize.getSize());
-        System.out.println(bridge);
+        return new BridgeGame(bridge);
+
     }
 
     private BridgeSize readBridgeSize() {

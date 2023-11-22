@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class BridgeMaker {
 
-    private final Map<Integer, String> bridgeMap = Map.of(
+    private static final Map<Integer, String> BRIDGE_MAP = Map.of(
             0, "D",
             1, "U"
     );
@@ -25,7 +25,7 @@ public class BridgeMaker {
         List<String> bridge = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             int generatedNumber = bridgeNumberGenerator.generate();
-            bridge.add(bridgeMap.get(generatedNumber));
+            bridge.add(BRIDGE_MAP.get(generatedNumber));
 
         }
 
