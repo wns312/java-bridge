@@ -4,6 +4,9 @@ import bridge.error.ErrorCode;
 import java.util.List;
 
 public class Bridge {
+    private final int BRIDGE_MIN_SIZE = 3;
+    private final int BRIDGE_MAX_SIZE = 20;
+
     List<String> spaces;
 
     public Bridge(List<String> spaces) {
@@ -20,7 +23,7 @@ public class Bridge {
     }
 
     private void validateBridgeLength(List<String> spaces) {
-        if (spaces.size() < 3 || spaces.size() > 20) {
+        if (spaces.size() < BRIDGE_MIN_SIZE || spaces.size() > BRIDGE_MAX_SIZE) {
             throw ErrorCode.INVALID_BRIDGE_LENGTH.getException();
         }
     }

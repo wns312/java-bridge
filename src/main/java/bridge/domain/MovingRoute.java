@@ -2,7 +2,6 @@ package bridge.domain;
 
 import bridge.constant.MoveDirection;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MovingRoute {
